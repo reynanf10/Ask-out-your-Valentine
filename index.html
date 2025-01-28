@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valentines Day</title>
+  <title>Valentine's Day</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .gradient-background {
@@ -26,13 +26,60 @@
         transform: translateY(-10px);
       }
     }
+
+    @keyframes beat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .love-letter {
+      width: 600px;
+      height: auto;
+      overflow: hidden;
+      padding: 20px;
+      border: 2px solid red;
+      border-radius: 10px;
+      background-color: pink;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      text-align: left;
+      transition: height 2s ease-out;
+    }
+
+    .envelope {
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      animation: beat 1s infinite;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Add this style block */
+    #envelope {
+      display: none; /* Hide the envelope from the start */
+    }
+    #letter {
+      font-family: 'Times New Roman', Times, serif; /* Set font to Times New Roman */
+      display: none; /* Hide the letter initially */
+    }
+    .heart-background {
+      background-image: url('./images/heart-background.png'); /* Add your heart background image */
+      background-size: cover;
+    }
   </style>
 </head>
 <body class="gradient-background">
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
       <img id="imageDisplay" src="./images/image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
-      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine?</h2>
+      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine, my babyyy?</h2>
       <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
         <button id="yesButton"
           class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
@@ -42,6 +89,28 @@
           class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
           No
         </button>
+      </div>
+      <img id="heart" src="./images/heart1.gif" alt="Heart" class="hidden">
+      <img id="envelope" src="./images/envelope1.png" alt="Envelope" class="envelope hidden">
+      <div id="letter" class="love-letter hidden">
+        <p style="text-align: center;">💌 An Invitation to Celebrate Love 💌</p>
+        <p>Hello Babyyy,</p>
+        <p>You are invited to celebrate post Valentine's Day celebration with me to make more happy memories together.</p>
+        <p>We’re going to Las Huertas Staycation, staying at Casa Industria for 22 hours of peace, love, and cozy vibes.</p>
+        <p>✨ Details of our getaway:</p>
+        <p>📅 Check-in Date & Time: February 15 (Saturday), 3 PM</p>
+        <p>📅 Check-out Date & Time: February 16 (Sunday), 1 PM</p>
+        <p>This is the activities that we would like to do: </p>
+        <p>🚉 Ride the train to Antipolo Station, enjoying the sights and excitement together.</p>
+        <p>🏠Enjoying our stay at Casa Industria, singing in karaoke, tiktok, play games and what we really want---cuddling!</p>
+        <p>🌌 Roofdeck viewing under the stars to soak in the cool evening breeze.</p>
+        <p>🌁 A romantic visit to Cloud 9, where we’ll walk the famous hanging bridge and enjoy the breathtaking views.</p>
+        <p>🙏 A peaceful stop at the Antipolo Cathedral, offering a quiet moment to reflect on our blessings.</p>
+        <p>If you still have another plan to do, let me know my babyyy!</p>
+        <p>This Valentine’s, it’s just you, me, and the beauty of Antipolo. Let’s make memories that’ll stay in our hearts forever.</p>
+        <p>I can’t wait to spend this special weekend with you! I miss you! ❤️</p>
+        <p>Love,</p>
+        <p>Your Baby Reyn🐼</p>
       </div>
     </div>
   </div>
@@ -53,7 +122,9 @@
     const imageDisplay = document.getElementById('imageDisplay');
     const valentineQuestion = document.getElementById('valentineQuestion');
     const responseButtons = document.getElementById('responseButtons');
-  
+    const heart = document.getElementById('heart');
+    const envelope = document.getElementById('envelope');
+    const letter = document.getElementById('letter');
     let noClickCount = 0;
     let buttonHeight = 48; // Starting height in pixels
     let buttonWidth = 80;
@@ -61,10 +132,10 @@
     const imagePaths = [
       "./images/image1.gif",
       "./images/image2.gif",
-      "./images/image3.gif",
-      "./images/image4.gif",
+      "./images/hamster1.gif",
+      "./images/hamster2.gif",
       "./images/image5.gif",
-      "./images/image6.gif",
+      "./images/meow1.gif",
       "./images/image7.gif"
     ];
   
@@ -79,7 +150,7 @@
         yesButton.style.width = `${buttonWidth}px`;
         yesButton.style.fontSize = `${fontSize}px`; // Update font size
         if (noClickCount < 6) {
-          noButton.textContent = ["No", "Are you sure?", "Pookie please", "Don't do this to me :(", "You're breaking my heart", "I'm gonna cry..."][noClickCount];
+          noButton.textContent = ["No", "Sure kana ga baby?", "Grabe eon :<", "Wala na, malungkot na  ako :(", "Ouch, pain, pighati :( ", "Lumbay. Iyak nalang me. Iyak well T.T"][noClickCount];
         }
       }
     });
@@ -89,6 +160,17 @@
       valentineQuestion.textContent = "Yayyy!! :3"; // Change the question text
       responseButtons.style.display = 'none'; // Hide both buttons
       confetti(); // Trigger confetti animation
+      envelope.classList.remove('hidden'); // Show envelope
+      envelope.style.display = 'block'; // Ensure envelope is displayed when needed
+    });
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.add('hidden'); // Hide envelope
+      imageDisplay.style.display = 'none'; // Hide image
+      valentineQuestion.style.display = 'none'; // Hide question text
+      letter.style.display = 'block'; // Show letter
+      letter.classList.add('heart-background'); // Add heart background when letter is opened
+
     });
   </script>  
 </body>
